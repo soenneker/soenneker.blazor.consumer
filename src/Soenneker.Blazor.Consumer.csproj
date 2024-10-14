@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Description>An abstract wrapper around Soenneker.Blazor.ApiClient supporting auto (de)serialization for requests/responses/ProblemDetails.</Description>
+        <Description>A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.</Description>
         <Version Condition="'$(BUILD_VERSION)' == ''">2.1.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.Blazor.Consumer</AssemblyName>
@@ -40,8 +40,8 @@
         <None Include="..\LICENSE" Pack="true" PackagePath="\" />
         <None Include="..\icon.png" Pack="true" PackagePath="\" />
     </ItemGroup>
-
+    
     <ItemGroup>
-        <PackageReference Include="Soenneker.Blazor.ApiClient" Version="2.1.86" />
+      <PackageReference Include="Soenneker.Blazor.Consumer.Base" Version="2.1.2" />
     </ItemGroup>
 </Project>

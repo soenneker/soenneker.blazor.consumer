@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Soenneker.Blazor.Consumer.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
@@ -12,5 +10,6 @@ public class BaseConsumerTests : FixturedUnitTest
 {
     public BaseConsumerTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
     {
+        var consumer = Resolve<IConsumer<object>>();
     }
 }
