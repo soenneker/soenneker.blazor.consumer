@@ -21,7 +21,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the response and any problem details.</returns>
-    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a single resource by ID asynchronously using Task.
@@ -32,7 +32,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the response and any problem details.</returns>
-    Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves all resources asynchronously.
@@ -75,7 +75,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the updated response and any problem details.</returns>
-    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string id, object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string? id, object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a resource asynchronously by ID.
@@ -86,17 +86,18 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the deleted response and any problem details.</returns>
-    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Uploads a file stream asynchronously.
     /// </summary>
     /// <typeparam name="TResponse">The type of the response expected.</typeparam>
+    /// <param name="id"></param>
     /// <param name="stream">The file stream to upload.</param>
     /// <param name="fileName">The name of the file being uploaded.</param>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the upload response and any problem details.</returns>
-    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Upload(Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 }

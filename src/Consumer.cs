@@ -19,13 +19,13 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
     }
 
     [Pure]
-    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
+    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return Get<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
 
     [Pure]
-    public virtual Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
+    public virtual Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return GetTask<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
@@ -47,20 +47,20 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
         return Create<TResponse>(request, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string id, object request, string? overrideUri = null, bool allowAnonymous = false,
+    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
         return Update<TResponse>(id, request, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
+    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return Delete<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Upload(Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false,
+    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Upload<TResponse>(stream, fileName, overrideUri, allowAnonymous, cancellationToken);
+        return Upload<TResponse>(id, stream, fileName, overrideUri, allowAnonymous, cancellationToken);
     }
 }
