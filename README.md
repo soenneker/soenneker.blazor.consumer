@@ -3,7 +3,7 @@
 [![](https://img.shields.io/nuget/dt/soenneker.blazor.consumer.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.blazor.consumer/)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Blazor.Consumer
-### An abstract wrapper around Soenneker.Blazor.ApiClient supporting auto (de)serialization for requests/responses/ProblemDetails.
+### A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.
 
 ## Installation
 

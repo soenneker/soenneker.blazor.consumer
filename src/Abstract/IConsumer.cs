@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Soenneker.Blazor.Consumer.Base.Abstract;
 using Soenneker.Dtos.ProblemDetails;
 
 namespace Soenneker.Blazor.Consumer.Abstract;
