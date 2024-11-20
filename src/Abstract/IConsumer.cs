@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Soenneker.Blazor.Consumer.Base.Abstract;
 using Soenneker.Dtos.ProblemDetails;
+using Soenneker.Responses.FileUpload;
 
 namespace Soenneker.Blazor.Consumer.Abstract;
 
@@ -15,7 +16,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Retrieves a single resource by ID asynchronously.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="id">The unique identifier of the resource to retrieve.</param>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
@@ -26,7 +26,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Retrieves a single resource by ID asynchronously using Task.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="id">The unique identifier of the resource to retrieve.</param>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
@@ -37,7 +36,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Retrieves all resources asynchronously.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -47,7 +45,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Retrieves all resources asynchronously using Task.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -57,7 +54,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Creates a new resource asynchronously.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="request">The request object to create the resource.</param>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
@@ -68,7 +64,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Updates an existing resource asynchronously by ID.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="id">The unique identifier of the resource to update.</param>
     /// <param name="overrideUri"></param>
     /// <param name="request">The request object to update the resource.</param>
@@ -80,7 +75,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Deletes a resource asynchronously by ID.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="id">The unique identifier of the resource to delete.</param>
     /// <param name="overrideUri"></param>
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
@@ -91,7 +85,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Uploads a file stream asynchronously.
     /// </summary>
-    /// <typeparam name="TResponse">The type of the response expected.</typeparam>
     /// <param name="id"></param>
     /// <param name="stream">The file stream to upload.</param>
     /// <param name="fileName">The name of the file being uploaded.</param>
@@ -99,5 +92,5 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the upload response and any problem details.</returns>
-    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    ValueTask<(FileUploadResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 }

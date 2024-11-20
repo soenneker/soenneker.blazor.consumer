@@ -8,6 +8,7 @@ using Soenneker.Blazor.ApiClient.Abstract;
 using Soenneker.Blazor.Consumer.Abstract;
 using Soenneker.Blazor.Consumer.Base;
 using Soenneker.Dtos.ProblemDetails;
+using Soenneker.Responses.FileUpload;
 
 namespace Soenneker.Blazor.Consumer;
 
@@ -58,9 +59,9 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
         return Delete<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false,
+    public virtual ValueTask<(FileUploadResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Upload<TResponse>(id, stream, fileName, overrideUri, allowAnonymous, cancellationToken);
+        return Upload<FileUploadResponse>(id, stream, fileName, overrideUri, allowAnonymous, cancellationToken);
     }
 }
