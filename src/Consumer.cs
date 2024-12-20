@@ -19,25 +19,21 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
     {
     }
 
-    [Pure]
     public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return Get<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    [Pure]
     public virtual Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return GetTask<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    [Pure]
     public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return GetAll<TResponse>(overrideUri, allowAnonymous, cancellationToken);
     }
 
-    [Pure]
     public virtual Task<(List<TResponse>? response, ProblemDetailsDto? details)> GetAllTask(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return GetAllTask<TResponse>(overrideUri, allowAnonymous, cancellationToken);
