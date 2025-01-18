@@ -43,6 +43,6 @@
     
     <ItemGroup>
       <PackageReference Include="Soenneker.Blazor.Consumer.Base" Version="3.0.540" />
-      <PackageReference Include="Soenneker.Responses.FileUpload" Version="3.0.161" />
+      <PackageReference Include="Soenneker.Responses.FileUpload" Version="3.0.163" />
     </ItemGroup>
 </Project>
