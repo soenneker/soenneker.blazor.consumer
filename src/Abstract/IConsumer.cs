@@ -3,6 +3,7 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Soenneker.Blazor.ApiClient.Dtos;
 using Soenneker.Blazor.Consumer.Base.Abstract;
 using Soenneker.Dtos.ProblemDetails;
 using Soenneker.Responses.FileUpload;
@@ -25,6 +26,10 @@ public interface IConsumer<TResponse> : IBaseConsumer
     [Pure]
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
+    [Pure]
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(RequestOptions requestOptions, CancellationToken cancellationToken = default);
+
+
     /// <summary>
     /// Retrieves all resources asynchronously.
     /// </summary>
@@ -34,6 +39,9 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <returns>A tuple containing a list of responses and any problem details.</returns>
     [Pure]
     ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+
+    [Pure]
+    ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new resource asynchronously.
@@ -45,7 +53,12 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <returns>A tuple containing the created response and any problem details.</returns>
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Create(object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Create(RequestOptions requestOptions, CancellationToken cancellationToken = default);
+
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Post(object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Post(RequestOptions requestOptions, CancellationToken cancellationToken = default);
+
 
     /// <summary>
     /// Updates an existing resource asynchronously by ID.
@@ -59,8 +72,12 @@ public interface IConsumer<TResponse> : IBaseConsumer
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default);
 
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(RequestOptions requestOptions, CancellationToken cancellationToken = default);
+
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Put(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default);
+
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Put(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a resource asynchronously by ID.
@@ -71,6 +88,9 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the deleted response and any problem details.</returns>
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(RequestOptions requestOptions, CancellationToken cancellationToken = default);
+
 
     /// <summary>
     /// Uploads a file stream asynchronously.
@@ -84,4 +104,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <returns>A tuple containing the upload response and any problem details.</returns>
     ValueTask<(FileUploadResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default);
+
+    ValueTask<(FileUploadResponse? response, ProblemDetailsDto? details)> Upload(RequestUploadOptions requestOptions, CancellationToken cancellationToken = default);
 }
