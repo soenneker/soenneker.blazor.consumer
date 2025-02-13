@@ -26,17 +26,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Get(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a single resource by ID asynchronously using Task.
-    /// </summary>
-    /// <param name="id">The unique identifier of the resource to retrieve.</param>
-    /// <param name="overrideUri"></param>
-    /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the response and any problem details.</returns>
-    [Pure]
-    Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Retrieves all resources asynchronously.
     /// </summary>
     /// <param name="overrideUri"></param>
@@ -47,16 +36,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves all resources asynchronously using Task.
-    /// </summary>
-    /// <param name="overrideUri"></param>
-    /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing a list of responses and any problem details.</returns>
-    [Pure]
-    Task<(List<TResponse>? response, ProblemDetailsDto? details)> GetAllTask(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Creates a new resource asynchronously.
     /// </summary>
     /// <param name="request">The request object to create the resource.</param>
@@ -64,8 +43,9 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the created response and any problem details.</returns>
-    [Pure]
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Create(object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Post(object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates an existing resource asynchronously by ID.
@@ -76,8 +56,10 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the updated response and any problem details.</returns>
-    [Pure]
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
+        CancellationToken cancellationToken = default);
+
+    ValueTask<(TResponse? response, ProblemDetailsDto? details)> Put(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -88,7 +70,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the deleted response and any problem details.</returns>
-    [Pure]
     ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -101,7 +82,6 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="allowAnonymous">Indicates whether anonymous access is allowed.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the upload response and any problem details.</returns>
-    [Pure]
     ValueTask<(FileUploadResponse? response, ProblemDetailsDto? details)> Upload(string? id, Stream stream, string fileName, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default);
 }

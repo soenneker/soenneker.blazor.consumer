@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,19 +23,9 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
         return Get<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    public virtual Task<(TResponse? response, ProblemDetailsDto? details)> GetTask(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
-    {
-        return GetTask<TResponse>(id, overrideUri, allowAnonymous, cancellationToken);
-    }
-
     public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return GetAll<TResponse>(overrideUri, allowAnonymous, cancellationToken);
-    }
-
-    public virtual Task<(List<TResponse>? response, ProblemDetailsDto? details)> GetAllTask(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
-    {
-        return GetAllTask<TResponse>(overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Create(object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
@@ -44,10 +33,21 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
         return Create<TResponse>(request, overrideUri, allowAnonymous, cancellationToken);
     }
 
+    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Post(object request, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
+    {
+        return Post<TResponse>(request, overrideUri, allowAnonymous, cancellationToken);
+    }
+
     public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Update(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
         return Update<TResponse>(id, request, overrideUri, allowAnonymous, cancellationToken);
+    }
+
+    public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Put(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
+        CancellationToken cancellationToken = default)
+    {
+        return Put<TResponse>(id, request, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<(TResponse? response, ProblemDetailsDto? details)> Delete(string? id, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)

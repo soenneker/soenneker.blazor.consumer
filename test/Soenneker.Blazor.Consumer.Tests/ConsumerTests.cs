@@ -1,4 +1,3 @@
-using Soenneker.Blazor.Consumer.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
 
