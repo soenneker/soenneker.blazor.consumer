@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Soenneker.Blazor.ApiClient.Dtos;
-using Soenneker.Blazor.Consumer.Base.Abstract;
+using Soenneker.Blazor.Consumers.Base.Abstract;
 using Soenneker.Dtos.ProblemDetails;
 using Soenneker.Responses.FileUpload;
 

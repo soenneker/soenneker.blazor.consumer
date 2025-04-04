@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Soenneker.Blazor.ApiClient.Abstract;
 using Soenneker.Blazor.ApiClient.Dtos;
 using Soenneker.Blazor.Consumer.Abstract;
-using Soenneker.Blazor.Consumer.Base;
+using Soenneker.Blazor.Consumers.Base;
 using Soenneker.Dtos.ProblemDetails;
 using Soenneker.Responses.FileUpload;
 
