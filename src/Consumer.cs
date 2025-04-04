@@ -8,6 +8,7 @@ using Soenneker.Blazor.ApiClient.Dtos;
 using Soenneker.Blazor.Consumer.Abstract;
 using Soenneker.Blazor.Consumers.Base;
 using Soenneker.Dtos.ProblemDetails;
+using Soenneker.Dtos.RequestDataOptions;
 using Soenneker.Responses.FileUpload;
 
 namespace Soenneker.Blazor.Consumer;
@@ -29,9 +30,9 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
         return Get<TResponse>(requestOptions, cancellationToken);
     }
 
-    public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
+    public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestDataOptions? requestDataOptions = null, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
-        return GetAll<TResponse>(overrideUri, allowAnonymous, cancellationToken);
+        return GetAll<TResponse>(requestDataOptions, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default)
