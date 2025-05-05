@@ -1,4 +1,4 @@
-# Contributing to Soenneker.Blazor.Consumer
+﻿# Contributing to Soenneker.Blazor.Consumer
 
 We're excited that you're interested in contributing!
 
