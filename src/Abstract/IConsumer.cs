@@ -2,8 +2,8 @@ using Soenneker.Blazor.ApiClient.Dtos;
 using Soenneker.Blazor.Consumers.Base.Abstract;
 using Soenneker.Dtos.ProblemDetails;
 using Soenneker.Dtos.RequestDataOptions;
+using Soenneker.Dtos.Results.Paged;
 using Soenneker.Responses.FileUpload;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Threading;
@@ -40,10 +40,10 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing a list of responses and any problem details.</returns>
     [Pure]
-    ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestDataOptions? requestDataOptions = null, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
+    ValueTask<(PagedResult<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestDataOptions? requestDataOptions = null, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default);
 
     [Pure]
-    ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default);
+    ValueTask<(PagedResult<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new resource asynchronously.

@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Soenneker.Blazor.ApiClient.Abstract;
 using Soenneker.Blazor.ApiClient.Dtos;
@@ -9,7 +5,11 @@ using Soenneker.Blazor.Consumer.Abstract;
 using Soenneker.Blazor.Consumers.Base;
 using Soenneker.Dtos.ProblemDetails;
 using Soenneker.Dtos.RequestDataOptions;
+using Soenneker.Dtos.Results.Paged;
 using Soenneker.Responses.FileUpload;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Soenneker.Blazor.Consumer;
 
@@ -30,12 +30,12 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
         return Get<TResponse>(requestOptions, cancellationToken);
     }
 
-    public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestDataOptions? requestDataOptions = null, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
+    public virtual ValueTask<(PagedResult<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestDataOptions? requestDataOptions = null, string? overrideUri = null, bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
         return GetAll<TResponse>(requestDataOptions, overrideUri, allowAnonymous, cancellationToken);
     }
 
-    public virtual ValueTask<(List<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default)
+    public virtual ValueTask<(PagedResult<TResponse>? response, ProblemDetailsDto? details)> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
         return GetAll<TResponse>(requestOptions, cancellationToken);
     }
