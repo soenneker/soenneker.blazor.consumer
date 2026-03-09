@@ -1,6 +1,7 @@
 [![](https://img.shields.io/nuget/v/soenneker.blazor.consumer.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.blazor.consumer/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.blazor.consumer/publish-package.yml?style=for-the-badge)](https://github.com/soenneker/soenneker.blazor.consumer/actions/workflows/publish-package.yml)
 [![](https://img.shields.io/nuget/dt/soenneker.blazor.consumer.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.blazor.consumer/)
+[![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.blazor.consumer/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.blazor.consumer/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Blazor.Consumer
 ### A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.
