@@ -31,11 +31,9 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// <summary>
     /// Asynchronously retrieves a response using the specified request options.
     /// </summary>
-    /// <param name="requestOptions">The options that configure the request, including parameters such as headers, query values, or authentication
-    /// settings. Cannot be null.</param>
+    /// <param name="requestOptions">The options that configure the request, including parameters such as headers, query values, or authentication settings. Cannot be null.</param>
     /// <param name="cancellationToken">A cancellation token that can be used to cancel the operation. The default value is <see cref="CancellationToken.None"/>.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="OperationResult{TResponse}"/> representing the outcome of the request, including the response data if
-    /// successful.</returns>
+    /// <returns>A task whose result is the requested operation Result.</returns>
     [Pure]
     ValueTask<OperationResult<TResponse>> Get(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
@@ -56,8 +54,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// </summary>
     /// <param name="requestOptions">The options that define filtering, sorting, and pagination parameters for the query. Cannot be null.</param>
     /// <param name="cancellationToken">A cancellation token that can be used to cancel the operation.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an OperationResult with a
-    /// PagedResult of items of type TResponse. The result may be empty if no items match the criteria.</returns>
+    /// <returns>A task whose result is the requested operation Result.</returns>
     [Pure]
     ValueTask<OperationResult<PagedResult<TResponse>>> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
@@ -98,9 +95,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// </summary>
     /// <param name="requestOptions">The options that configure the POST request, including endpoint, headers, and payload. Cannot be null.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an <see
-    /// cref="OperationResult{TResponse}"/> representing the outcome of the POST request, including the response data or
-    /// error information.</returns>
+    /// <returns>A task whose result is the requested operation Result.</returns>
     ValueTask<OperationResult<TResponse>> Post(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -146,8 +141,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// </summary>
     /// <param name="requestOptions">The options that configure the PUT request, including endpoint, headers, and payload. Cannot be null.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests. The operation is canceled if the token is triggered.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an OperationResult{TResponse} with
-    /// the response from the PUT request.</returns>
+    /// <returns>A task whose result is the requested operation Result.</returns>
     ValueTask<OperationResult<TResponse>> Put(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -166,8 +160,7 @@ public interface IConsumer<TResponse> : IBaseConsumer
     /// </summary>
     /// <param name="requestOptions">The options that define which resource to delete and any additional request parameters. Cannot be null.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
-    /// <returns>A task that represents the asynchronous delete operation. The task result contains an <see
-    /// cref="OperationResult{TResponse}"/> indicating the outcome of the delete request.</returns>
+    /// <returns>A task that represents the asynchronous delete operation. The task result contains an <see cref="OperationResult{TResponse}"/> indicating the outcome of the delete request.</returns>
     ValueTask<OperationResult<TResponse>> Delete(RequestOptions requestOptions, CancellationToken cancellationToken = default);
 
     /// <summary>
