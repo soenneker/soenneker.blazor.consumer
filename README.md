@@ -5,54 +5,78 @@
 
 # Soenneker.Blazor.Consumer
 
-A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.
+A typed base class for app-specific Blazor API consumers that return `OperationResult<TResponse>` from common CRUD and upload requests.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Soenneker.Blazor.Consumer
 ```
 
-## Quick start
+## Define a consumer
+
+`Consumer<TResponse>` has a protected constructor. Derive a concrete consumer and choose the resource URI prefix once:
 
 ```csharp
-using Soenneker.Blazor.Consumer.Abstract;
+using Microsoft.Extensions.Logging;
+using Soenneker.Blazor.ApiClient.Abstract;
+using Soenneker.Blazor.Consumer;
 
-IConsumer<TResponse> consumer = /* resolve from DI */;
-var result = await consumer.Get("value", default);
+public sealed class TodoConsumer : Consumer<TodoDto>
+{
+    public TodoConsumer(
+        IApiClient apiClient,
+        ILogger<Consumer<TodoDto>> logger,
+        IConfiguration configuration)
+        : base(apiClient, logger, "todos")
+    {
+        apiClient.Initialize(
+            configuration["Api:BaseUrl"]!,
+            requestResponseLogging: false);
+    }
+}
 ```
 
-Retrieves a single resource by ID asynchronously.
+Register the API client and concrete consumer as scoped services:
 
-## What you get
+```csharp
+using Soenneker.Blazor.ApiClient.Registrars;
 
-- `IConsumer<TResponse>` — A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.
+builder.Services.AddApiClientAsScoped();
+builder.Services.AddScoped<TodoConsumer>();
+```
 
-## API at a glance
+## Use it
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `IConsumer<TResponse>.Get(id, overrideUri, allowAnonymous, cancellationToken)` | Retrieves a single resource by ID asynchronously. | An OperationResult containing the response or problem details. |
-| `IConsumer<TResponse>.Get(requestOptions, cancellationToken)` | Asynchronously retrieves a response using the specified request options. | A task whose result is the requested operation Result. |
-| `IConsumer<TResponse>.GetAll(requestDataOptions, overrideUri, allowAnonymous, cancellationToken)` | Retrieves all resources asynchronously. | An OperationResult containing a list of responses or problem details. |
-| `IConsumer<TResponse>.GetAll(requestOptions, cancellationToken)` | Retrieves a paged collection of items that match the specified request options. | A task whose result is the requested operation Result. |
-| `IConsumer<TResponse>.Create(request, overrideUri, allowAnonymous, cancellationToken)` | Creates a new resource asynchronously. | An OperationResult containing the created response or problem details. |
-| `IConsumer<TResponse>.Create(requestOptions, cancellationToken)` | Creates a new resource asynchronously using the specified request options. | A value task that represents the asynchronous operation. The result contains the outcome of the create operation, including the created resource if successful. |
-| `IConsumer<TResponse>.Post(request, overrideUri, allowAnonymous, cancellationToken)` | Sends an HTTP POST request with the specified request payload and returns the operation result asynchronously. | A ValueTask that represents the asynchronous operation. The result contains the response from the server, or an error if the operation fails. |
-| `IConsumer<TResponse>.Post(requestOptions, cancellationToken)` | Sends a POST request using the specified options and returns the result asynchronously. | A task whose result is the requested operation Result. |
-| `IConsumer<TResponse>.Update(id, request, overrideUri, allowAnonymous, cancellationToken)` | Updates an existing resource asynchronously by ID. | An OperationResult containing the updated response or problem details. |
-| `IConsumer<TResponse>.Update(requestOptions, cancellationToken)` | Asynchronously updates the resource using the specified request options. | A task that represents the asynchronous update operation. The task result contains an OperationResult with the response data if the update succeeds. |
-| `IConsumer<TResponse>.Put(id, request, overrideUri, allowAnonymous, cancellationToken)` | Sends a PUT request to update or create a resource with the specified identifier and request payload. | A ValueTask that represents the asynchronous operation. The result contains the outcome of the PUT request, including the deserialized response if successful. |
-| `IConsumer<TResponse>.Put(requestOptions, cancellationToken)` | Sends a PUT request using the specified options and returns the result asynchronously. | A task whose result is the requested operation Result. |
-| `IConsumer<TResponse>.Delete(id, overrideUri, allowAnonymous, cancellationToken)` | Deletes a resource asynchronously by ID. | An OperationResult containing the deleted response or problem details. |
-| `IConsumer<TResponse>.Delete(requestOptions, cancellationToken)` | Deletes the resource specified by the request options and returns the result of the operation asynchronously. | A task that represents the asynchronous delete operation. The task result contains an `OperationResult{TResponse}` indicating the outcome of the delete request. |
-| `IConsumer<TResponse>.Upload(id, stream, fileName, overrideUri, allowAnonymous, cancellationToken)` | Uploads a file stream asynchronously. | An OperationResult containing the upload response or problem details. |
-| `IConsumer<TResponse>.Upload(requestOptions, cancellationToken)` | Initiates an asynchronous file upload operation using the specified upload options. | A value task that represents the asynchronous operation. The result contains an `OperationResult{T}` with a `FileUploadResponse` describing the outcome of the upload. |
+```csharp
+OperationResult<TodoDto> result = await todoConsumer.Get(
+    id: "42",
+    cancellationToken: cancellationToken);
 
-## Important behavior
+if (result.Succeeded)
+{
+    TodoDto? todo = result.Value;
+}
+else
+{
+    ProblemDetailsDto? problem = result.Problem;
+}
+```
 
-- `IConsumer<TResponse>.Put(id, request, overrideUri, allowAnonymous, cancellationToken)`: If authentication is required and allowAnonymous is false, the request will include authentication credentials. The request payload must be serializable to the expected format (such as JSON).
+The generic response type is fixed for `Get`, `Create`, `Post`, `Update`, `Put`, and `Delete`. `GetAll` returns `OperationResult<PagedResult<TodoDto>>`; `Upload` returns `OperationResult<FileUploadResponse>`.
 
-## Practical notes
+## Default routes
 
-- Cancellation stops pending work; it does not undo work that has already completed.
+For a prefix of `todos`, the convenience overloads build these relative URIs:
+
+| Call | URI |
+| --- | --- |
+| `Get("42")`, `Update("42", request)`, `Put("42", request)`, `Delete("42")` | `todos/42` |
+| `GetAll()`, `Create(request)`, `Post(request)` | `todos` |
+| `Upload("42", stream, "file.pdf")` | `todos/42/upload` |
+
+`overrideUri` replaces the entire default URI. Use the `RequestOptions` overloads when the endpoint does not follow these conventions or when per-request anonymity and logging flags are needed. `allowAnonymous` defaults to `false` for JSON requests.
+
+Responses are deserialized into the success value for successful status codes or into problem details for error responses. A response body that does not match the expected JSON shape produces a failed `OperationResult`; transport, authentication, and cancellation failures may still throw.
+
+Uploads use multipart fields named `file` and `json`. The underlying API client disposes the supplied upload stream after the request, so do not reuse it.
