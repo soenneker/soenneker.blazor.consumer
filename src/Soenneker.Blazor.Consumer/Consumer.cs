@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Blazor.Consumer;
 
-///<inheritdoc cref="IConsumer{TResponse}"/>
+/// <inheritdoc cref="IConsumer{TResponse}"/>
 public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
 {
     protected Consumer(IApiClient apiClient, ILogger<Consumer<TResponse>> logger, string prefixUri) : base(apiClient, logger, prefixUri)
