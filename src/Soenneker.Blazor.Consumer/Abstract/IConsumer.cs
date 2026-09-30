@@ -14,8 +14,7 @@ namespace Soenneker.Blazor.Consumer.Abstract;
 /// <summary>
 /// A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.
 /// </summary>
-/// <remarks>Supply a source-generated JSON context to the consumer constructor covering TResponse,
-/// PagedResult&lt;TResponse&gt;, and FileUploadResponse for the operations the consumer uses.</remarks>
+/// <remarks>Convenience methods use web JSON defaults. For generated metadata, use the inherited method overloads accepting JsonTypeInfo.</remarks>
 public interface IConsumer<TResponse> : IBaseConsumer
 {
     /// <summary>

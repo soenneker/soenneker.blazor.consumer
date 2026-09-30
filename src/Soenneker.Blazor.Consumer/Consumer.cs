@@ -8,7 +8,8 @@ using Soenneker.Dtos.Results.Operation;
 using Soenneker.Dtos.Results.Paged;
 using Soenneker.Responses.FileUpload;
 using System;
-using System.Text.Json.Serialization;
+using System.Text.Json;
+using Soenneker.Json.OptionsCollection;
 using System.Text.Json.Serialization.Metadata;
 using System.IO;
 using System.Threading;
@@ -19,15 +20,20 @@ namespace Soenneker.Blazor.Consumer;
 
 public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
 {
-    private readonly JsonSerializerContext _jsonContext;
 
-    protected Consumer(IApiClient apiClient, ILogger<Consumer<TResponse>> logger, string prefixUri, JsonSerializerContext jsonContext) : base(apiClient, logger, prefixUri)
+    private static readonly Lazy<JsonSerializerOptions> _reflectionOptions = new(() =>
     {
-        _jsonContext = jsonContext ?? throw new ArgumentNullException(nameof(jsonContext));
+        var options = new JsonSerializerOptions(JsonOptionsCollection.WebOptions) { TypeInfoResolver = new DefaultJsonTypeInfoResolver() };
+        options.MakeReadOnly();
+        return options;
+    });
+
+    protected Consumer(IApiClient apiClient, ILogger<Consumer<TResponse>> logger, string prefixUri) : base(apiClient, logger, prefixUri)
+    {
     }
 
     private JsonTypeInfo<T> GetTypeInfo<T>() =>
-        (JsonTypeInfo<T>)(_jsonContext.GetTypeInfo(typeof(T)) ?? throw new NotSupportedException($"No generated JSON metadata for {typeof(T)}."));
+        (JsonTypeInfo<T>)_reflectionOptions.Value.GetTypeInfo(typeof(T));
 
     public virtual ValueTask<OperationResult<TResponse>> Get(string? id, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
