@@ -45,11 +45,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Blazor.Consumers.Base" Version="4.0.1132" />
-        <PackageReference Include="Soenneker.Responses.FileUpload" Version="4.0.404" />
+        <PackageReference Include="Soenneker.Blazor.Consumers.Base" Version="4.0.1134" />
+        <PackageReference Include="Soenneker.Responses.FileUpload" Version="4.0.405" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="4.0.65" />
+        <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="4.0.66" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
