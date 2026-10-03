@@ -20,6 +20,9 @@ namespace Soenneker.Blazor.Consumer;
 public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
 {
     private readonly JsonSerializerContext _jsonContext;
+    private JsonTypeInfo<TResponse>? _responseTypeInfo;
+    private JsonTypeInfo<PagedResult<TResponse>>? _pagedTypeInfo;
+    private JsonTypeInfo<FileUploadResponse>? _uploadTypeInfo;
 
     protected Consumer(IApiClient apiClient, ILogger<Consumer<TResponse>> logger, string prefixUri, JsonSerializerContext jsonContext) : base(apiClient, logger, prefixUri)
     {
@@ -32,88 +35,88 @@ public class Consumer<TResponse> : BaseConsumer, IConsumer<TResponse>
     public virtual ValueTask<OperationResult<TResponse>> Get(string? id, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Get<TResponse>(GetTypeInfo<TResponse>(), id, overrideUri, allowAnonymous, cancellationToken);
+        return Get<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), id, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Get(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Get<TResponse>(GetTypeInfo<TResponse>(), requestOptions, cancellationToken);
+        return Get<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<PagedResult<TResponse>>> GetAll(RequestDataOptions? requestDataOptions = null, string? overrideUri = null,
         bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
-        return GetAll<TResponse>(GetTypeInfo<PagedResult<TResponse>>(), requestDataOptions, overrideUri, allowAnonymous, cancellationToken);
+        return GetAll<TResponse>((_pagedTypeInfo ??= GetTypeInfo<PagedResult<TResponse>>()), requestDataOptions, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<PagedResult<TResponse>>> GetAll(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return GetAll<TResponse>(GetTypeInfo<PagedResult<TResponse>>(), requestOptions, cancellationToken);
+        return GetAll<TResponse>((_pagedTypeInfo ??= GetTypeInfo<PagedResult<TResponse>>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Create(object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Create<TResponse>(GetTypeInfo<TResponse>(), request, overrideUri, allowAnonymous, cancellationToken);
+        return Create<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), request, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Create(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Create<TResponse>(GetTypeInfo<TResponse>(), requestOptions, cancellationToken);
+        return Create<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Post(object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Post<TResponse>(GetTypeInfo<TResponse>(), request, overrideUri, allowAnonymous, cancellationToken);
+        return Post<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), request, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Post(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Post<TResponse>(GetTypeInfo<TResponse>(), requestOptions, cancellationToken);
+        return Post<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Update(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Update<TResponse>(GetTypeInfo<TResponse>(), id, request, overrideUri, allowAnonymous, cancellationToken);
+        return Update<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), id, request, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Update(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Update<TResponse>(GetTypeInfo<TResponse>(), requestOptions, cancellationToken);
+        return Update<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Put(string? id, object request, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Put<TResponse>(GetTypeInfo<TResponse>(), id, request, overrideUri, allowAnonymous, cancellationToken);
+        return Put<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), id, request, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Put(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Put<TResponse>(GetTypeInfo<TResponse>(), requestOptions, cancellationToken);
+        return Put<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Delete(string? id, string? overrideUri = null, bool allowAnonymous = false,
         CancellationToken cancellationToken = default)
     {
-        return Delete<TResponse>(GetTypeInfo<TResponse>(), id, overrideUri, allowAnonymous, cancellationToken);
+        return Delete<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), id, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<TResponse>> Delete(RequestOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Delete<TResponse>(GetTypeInfo<TResponse>(), requestOptions, cancellationToken);
+        return Delete<TResponse>((_responseTypeInfo ??= GetTypeInfo<TResponse>()), requestOptions, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<FileUploadResponse>> Upload(string? id, Stream stream, string fileName, string? overrideUri = null,
         bool allowAnonymous = false, CancellationToken cancellationToken = default)
     {
-        return Upload<FileUploadResponse>(GetTypeInfo<FileUploadResponse>(), id, stream, fileName, overrideUri, allowAnonymous, cancellationToken);
+        return Upload<FileUploadResponse>((_uploadTypeInfo ??= GetTypeInfo<FileUploadResponse>()), id, stream, fileName, overrideUri, allowAnonymous, cancellationToken);
     }
 
     public virtual ValueTask<OperationResult<FileUploadResponse>> Upload(RequestUploadOptions requestOptions, CancellationToken cancellationToken = default)
     {
-        return Upload<FileUploadResponse>(GetTypeInfo<FileUploadResponse>(), requestOptions, cancellationToken);
+        return Upload<FileUploadResponse>((_uploadTypeInfo ??= GetTypeInfo<FileUploadResponse>()), requestOptions, cancellationToken);
     }
 }
