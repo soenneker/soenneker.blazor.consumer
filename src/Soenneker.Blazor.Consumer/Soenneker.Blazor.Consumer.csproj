@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework>net11.0</TargetFramework>
         <IsAotCompatible>true</IsAotCompatible>
         <Nullable>enable</Nullable>
         <Platforms>AnyCPU</Platforms>
@@ -9,7 +9,7 @@
 
     <PropertyGroup>
         <Description>A derivative of Soenneker.Blazor.Consumer.Base, providing instance-wide generic type setting.</Description>
-        <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
+        <Version Condition="'$(BUILD_VERSION)' == ''">11.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.Blazor.Consumer</AssemblyName>
         <PackageId>Soenneker.Blazor.Consumer</PackageId>
@@ -45,13 +45,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Blazor.Consumers.Base" Version="4.0.1186" />
+        <PackageReference Include="Soenneker.Blazor.Consumers.Base" Version="4.0.1188" />
         <PackageReference Include="Soenneker.Responses.FileUpload" Version="4.0.425" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="4.0.81" />
+        <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="4.0.82" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.13" />
     </ItemGroup>
 </Project>
