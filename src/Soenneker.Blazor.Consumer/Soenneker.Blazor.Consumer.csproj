@@ -49,7 +49,7 @@
         <PackageReference Include="Soenneker.Responses.FileUpload" Version="4.0.425" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="11.0.83" />
+        <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="11.0.84" />
     </ItemGroup>
     <ItemGroup>
     </ItemGroup>
