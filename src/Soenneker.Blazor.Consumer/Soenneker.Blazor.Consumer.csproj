@@ -46,7 +46,7 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Blazor.Consumers.Base" Version="11.0.1207" />
-        <PackageReference Include="Soenneker.Responses.FileUpload" Version="11.0.428" />
+        <PackageReference Include="Soenneker.Responses.FileUpload" Version="11.0.429" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Soenneker.Dtos.Results.Operation" Version="11.0.85" />
